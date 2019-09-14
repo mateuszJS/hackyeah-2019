@@ -8,7 +8,7 @@ import {
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
-import { accountReducer, AccountState } from "./test/reducer";
+import { reducer, ReducerState } from "./reducer";
 import { ComponentType } from "react";
 
 export const myAppHistory = createBrowserHistory();
@@ -16,18 +16,18 @@ export const myAppHistory = createBrowserHistory();
 const rootReducer = (history: History) =>
   combineReducers({
     router: connectRouter(history),
-    account: accountReducer,
+    reducer,
   });
 
 export type AppState = {
-  account: AccountState;
+  reducer: ReducerState;
 };
 
 export function connect({
   mapStateToProps,
   mapDispatchToProps
 }: {
-  mapStateToProps: MapStateToPropsParam<{}, {}, {}>;
+  mapStateToProps: (state: AppState) => object;
   mapDispatchToProps: MapDispatchToPropsParam<{}, {}>;
 }): any {
   return function (target: ComponentType<never>) {
