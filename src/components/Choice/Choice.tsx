@@ -11,7 +11,7 @@ const useStyles = makeStyles({
     position: "absolute",
     top: 0,
     right: "10%",
-    height: "200px",
+    height: "150px",
     filter: "drop-shadow(5px 5px 5px #222)"
   },
   container: {
