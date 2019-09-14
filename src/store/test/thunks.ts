@@ -9,14 +9,14 @@ export const loginUser = (username: string, password: string) => async (
 ) => {
   dispatch(loginRequest());
 
-  accountService.login(username, password).then(
-    result => {
-      if (result.data) {
-        dispatch(loginSuccess(username));
-      }
-    },
-    error => {
-      dispatch(loginFailure(""));
-    }
-  );
+  // accountService.login(username, password).then(
+  //   result => {
+  //     if (result.data) {
+  //       dispatch(loginSuccess(username));
+  //     }
+  //   },
+  //   error => {
+  //     dispatch(loginFailure(""));
+  //   }
+  // );
 };
