@@ -20,7 +20,7 @@ const rootReducer = (history: History) =>
   });
 
 export type AppState = {
-  account: ReducerState;
+  reducer: ReducerState;
 };
 
 export function connect({

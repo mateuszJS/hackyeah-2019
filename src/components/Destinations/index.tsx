@@ -4,11 +4,13 @@ import queryString from 'query-string';
 import { Dispatch } from 'redux'
 import { connect, AppState } from '../../store/configureStore';
 import * as actions from '../../store/actions';
+import { Destination } from '../../typedef';
 
 interface Props extends RouteComponentProps {
+  destinations: Destination[]
   fetchDestinations: VoidFunction,
 }
-const Destinations = ({ location, fetchDestinations }: Props) => {
+const Destinations = ({ location, fetchDestinations, destinations }: Props) => {
   const { tags: stringifiedString } = queryString.parse(location.search)
   const tags = typeof stringifiedString === 'string'
     ? stringifiedString.split(',')
@@ -20,17 +22,17 @@ const Destinations = ({ location, fetchDestinations }: Props) => {
   return (
     <div>
       Destinations
-      {tags.map(tag => (
-        <p key={tag}>{tag}</p>
-      ))}
+      {destinations === undefined && <p>LOADER!</p>}
+      {destinations && destinations.map(destination =>
+        <p key={destination.country}>{destination.country}</p>
+      )}
     </div>
   );
 };
 
-const mapStateToProps = (state: AppState) => {
-  console.log({ state });
-  return {}
-};
+const mapStateToProps = ({ reducer: { destinations } }: AppState) => ({
+  destinations,
+})
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   fetchDestinations: () => actions.fetchDestinations(dispatch)
