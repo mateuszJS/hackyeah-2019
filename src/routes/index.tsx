@@ -5,13 +5,20 @@ import { NotFound } from "../components/NotFound";
 import FiltersView from "../components/Filter";
 import Destinations from "../components/Destinations";
 import Routes from "./urls";
+import Choice from "../components/Choice/Choice";
 
 const routes = (
   <Switch>
     <Route
       exact
       path={Routes.Home}
-      component={NotFound}
+      component={Choice}
+    />
+
+    <Route
+      exact
+      path={Routes.Home}
+      component={Choice}
     />
 
     <Route
