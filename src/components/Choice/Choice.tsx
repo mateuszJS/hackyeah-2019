@@ -23,18 +23,33 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    '@media (min-width:600px)': {
+      flexDirection: "row",
+    }
   },
   button: {
-    background: "linear-gradient(45deg, #FFBA5E 30%, #FF8071 90%)",
+    background: "linear-gradient(45deg, #8491c8 40%, #A7B1D7 60%)",
     border: 0,
-    borderRadius: 3,
-    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+    borderRadius: 8,
+    boxShadow: "0 3px 5px 2px rgba(78, 98, 174, .3)",
     color: "white",
-    height: 48,
+    height: "50px",
     padding: "0 30px",
     width: "70%",
-    margin: "10px"
+    margin: "15px",
+    fontSize: "14px",
+    fontWeight: 600,
+    '@media (min-width:600px)': {
+      height: "160px",
+      width: "160px",
+      margin: "40px",
+      fontSize: "16px",
+      '&:hover': {
+        background: "linear-gradient(45deg, #4e5eab 40%, #7380bf 60%)"
+      }
+    }
+   
   }
 });
 
@@ -45,7 +60,7 @@ export default function Choice() {
       <div className={classes.container}>
         <img className={classes.logo} src={logo_lot} alt={"logo"} />
         <Button className={classes.button}>I know the place!</Button>
-        <Button className={classes.button}>I know nothing</Button>
+        <Button className={classes.button}>I know nothing </Button>
       </div>
     </>
   );
