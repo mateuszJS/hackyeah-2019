@@ -49,15 +49,17 @@ const useStyles = makeStyles({
     }
   },
   button: {
-    background: "linear-gradient(45deg, #FFBA5E 30%, #FF8071 90%)",
+    background: "linear-gradient(45deg, #8491c8 40%, #A7B1D7 60%)",
     border: 0,
-    borderRadius: 3,
-    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+    borderRadius: 8,
+    boxShadow: "0 3px 5px 2px rgba(78, 98, 174, .3)",
     color: "white",
-    height: 48,
+    height: "50px",
     padding: "0 30px",
     width: "70%",
-    margin: "20px auto"
+    fontSize: "14px",
+    margin: "20px auto",
+    fontWeight: 600
   },
   country: {
     margin: "10px 20px",
@@ -72,10 +74,7 @@ const useStyles = makeStyles({
     margin: "10px 20px",
     display: "flex",
     fontStyle: "italic",
-    justifyContent: "space-between",
-    "&:hover": {
-      // background: "linear-gradient(45deg, #FFBA5E 30%, #FF8071 90%)"
-    }
+    justifyContent: "space-between"
   }
 });
 
