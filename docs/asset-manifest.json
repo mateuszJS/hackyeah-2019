@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/static/css/main.22eaab41.chunk.css",
+    "main.js": "/static/js/main.54b55112.chunk.js",
+    "main.js.map": "/static/js/main.54b55112.chunk.js.map",
+    "runtime~main.js": "/static/js/runtime~main.9b2a7a55.js",
+    "runtime~main.js.map": "/static/js/runtime~main.9b2a7a55.js.map",
+    "static/js/2.f07dc288.chunk.js": "/static/js/2.f07dc288.chunk.js",
+    "static/js/2.f07dc288.chunk.js.map": "/static/js/2.f07dc288.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.7791b07cf13299458e3fe11b1ca1f536.js": "/precache-manifest.7791b07cf13299458e3fe11b1ca1f536.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.22eaab41.chunk.css.map": "/static/css/main.22eaab41.chunk.css.map",
+    "static/media/Default.jpg": "/static/media/Default.146c395f.jpg",
+    "static/media/Delhi.jpg": "/static/media/Delhi.516af71d.jpg",
+    "static/media/NewYork.jpg": "/static/media/NewYork.7ccb372d.jpg",
+    "static/media/TelAviv.jpg": "/static/media/TelAviv.7b03d41c.jpg",
+    "static/media/Tokyo.jpg": "/static/media/Tokyo.8ca76d9d.jpg",
+    "static/media/Warsaw.jpg": "/static/media/Warsaw.e68f3d55.jpg",
+    "static/media/beach.jpg": "/static/media/beach.c581f938.jpg",
+    "static/media/cash.jpg": "/static/media/cash.24d5d6b3.jpg",
+    "static/media/choice_background.jpg": "/static/media/choice_background.103042e2.jpg",
+    "static/media/logo_lot.png": "/static/media/logo_lot.7b561315.png",
+    "static/media/map.jpg": "/static/media/map.8c32039a.jpg",
+    "static/media/party.jpg": "/static/media/party.7889bbd7.jpg",
+    "static/media/rest.jpg": "/static/media/rest.c00bd9a5.jpg",
+    "static/media/river.jpg": "/static/media/river.fddc03eb.jpg",
+    "static/media/see.jpg": "/static/media/see.eece4058.jpg",
+    "static/media/sky.jpg": "/static/media/sky.f32025c0.jpg"
+  }
+}

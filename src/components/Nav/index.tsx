@@ -15,13 +15,11 @@ const useStyles = makeStyles({
   },
   logo: {
     height: "80px",
-    filter: "drop-shadow(3px 3px 3px #222)"
   },
   title: {
     textAlign: "left",
     color: "white",
     fontWeight: 600,
-    filter: "drop-shadow(3px 3px 3px #222)"
   },
 });
 
