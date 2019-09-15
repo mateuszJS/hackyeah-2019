@@ -55,6 +55,33 @@ const Destinations = ({
     }
   }, [location.search]);
 
+  const contains = (a: any, b: any) => {
+    // array matches
+    if (Array.isArray(b)) {
+      return b.some(x => a.indexOf(x) > -1);
+    }
+    // string match
+    return a.indexOf(b) > -1;
+  };
+
+  let newArray: any[] = [];
+  let newArray2: any[] = [];
+  const { tags: stringifiedString } = queryString.parse(location.search);
+  const tags =
+    typeof stringifiedString === "string" ? stringifiedString.split(",") : [];
+  destinations &&
+    destinations.map(x => {
+      x.cities.map(y => {
+        if (contains(y.tags, tags) && !newArray.includes(x)) {
+          newArray.push(x);
+        } else if (!newArray.includes(x) && !newArray2.includes(x)) {
+          newArray2.push(x);
+        }
+      });
+    });
+
+  let destinationsList = [...newArray, ...newArray2];
+
   const redirectTo = (country: string | null) => {
     const params = queryString.parse(location.search);
     if (country) {
@@ -74,11 +101,11 @@ const Destinations = ({
       <Typography variant="h3" className={classes.title}>
         Destinations
       </Typography>
-      {destinations === undefined && <p>LOADER!</p>}
-      {destinations &&
-        destinations.map(destination => (
+      {destinationsList === undefined && <p>LOADER!</p>}
+      {destinationsList &&
+        destinationsList.map((destination, index) => (
           <Item
-            key={destination.country}
+            key={`${destination.country}_${index}`}
             data={destination}
             selected={selected === destination.country}
             redirect={redirectTo}
