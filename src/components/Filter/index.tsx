@@ -10,8 +10,7 @@ import colors from "../../colors";
 
 const useStyles = makeStyles({
   filter: {
-    //background: 'linear-gradient(#68AAD4 30%, #F2D8C9 90%)',
-    background: "white"
+    background: 'white',
   },
   header: {
     display: "flex",
@@ -20,9 +19,6 @@ const useStyles = makeStyles({
     background: colors.baseColor
   },
   logo: {
-    //position: "absolute",
-    //top: '13px',
-    //right: "5%",
     height: "80px",
     filter: "drop-shadow(3px 3px 3px #222)"
   },
@@ -66,8 +62,12 @@ const useStyles = makeStyles({
     display: "block",
     padding: "10px 20px",
     background: `linear-gradient(45deg, ${colors.baseColor} 30%, #21CBF3 90%)`,
-    boxShadow: "0 3px 5px 2px rgba(33, 203, 243, .3)",
-    color: "white"
+    boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
+    color: 'white',
+    "@media (min-width:600px)": {
+      padding: '20px 20px',
+      width: '25vw',
+    }
   },
 
   subtitle_item: {
