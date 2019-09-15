@@ -21,23 +21,43 @@ export const fetchFlights = async ({
   dispatch: Dispatch<AnyAction>;
   params: FetchFlightsParams;
 }) => {
-  const responseToken = await axios.get<any>(
-    "https://hy19.azurewebsites.net/token/new"
-  );
-
-  axios.defaults.headers["Authorization"] = responseToken.data;
-  axios.defaults.headers["X-Api-Key"] =
-    "9YFNNKS31u9gCFKPetPWdAAjEXnED0B3K18AeYgg";
-  const response = await axios.post<any>(
-    "https://api.lot.com/flights-dev/v2/booking/availability",
-    params
-  );
-
-  if (response.data.status === "200") {
+  try {
     dispatch({
-      type: "FLIGHTS",
-      payload: response.data.data
+      type: "FLIGHTS_REQUEST"
     });
-    myAppHistory.push(Routes.Flights);
+
+    const responseToken = await axios.get<any>(
+      "https://hy19.azurewebsites.net/token/new"
+    );
+
+    axios.defaults.headers["Authorization"] = responseToken.data;
+    axios.defaults.headers["X-Api-Key"] =
+      "9YFNNKS31u9gCFKPetPWdAAjEXnED0B3K18AeYgg";
+    const response = await axios.post<any>(
+      "https://api.lot.com/flights-dev/v2/booking/availability",
+      params
+    );
+
+    if (response.data.status === "200") {
+      dispatch({
+        type: "FLIGHTS_SUCCES",
+        payload: response.data.data
+      });
+      myAppHistory.push(Routes.Flights);
+    }
+  } catch (error) {
+    dispatch({
+      type: "FLIGHTS_FAILED"
+    });
   }
+};
+
+export const closeSnackbar = async ({
+  dispatch
+}: {
+  dispatch: Dispatch<AnyAction>;
+}) => {
+  dispatch({
+    type: "CLOSE_SNACKBAR"
+  });
 };
