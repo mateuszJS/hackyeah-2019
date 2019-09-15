@@ -5,25 +5,19 @@ import FormControl from "@material-ui/core/FormControl/FormControl";
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem/MenuItem";
 import Select from "@material-ui/core/Select/Select";
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-  DatePicker
-} from "@material-ui/pickers";
+import Typography from "@material-ui/core/Typography";
+import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { makeStyles } from "@material-ui/styles";
-import { useSnackbar, SnackbarProvider } from "notistack";
+import { useSnackbar } from "notistack";
 import queryString from "query-string";
 import React, { useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router";
 import { Dispatch } from "redux";
 import logo_lot from "../../assets/logo_lot.png";
+import colors from '../../colors';
 import * as actions from "../../store/actions";
 import { AppState, connect } from "../../store/configureStore";
 import { Destination, FetchFlightsParams, Flight } from "../../typedef";
-import logo_lot2 from "../../assets/logo_lot2.png";
-import colors from '../../colors';
-import Typography from "@material-ui/core/Typography";
-import queryString from "query-string";
 
 const useStyles = makeStyles({
   logo: {
