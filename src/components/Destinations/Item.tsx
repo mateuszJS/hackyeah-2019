@@ -302,8 +302,11 @@ const Item = (props: Props) => {
           })}
           src={getPhotoSrc(data.cities[0].iata)}
         />
-        <Typography className={classes.title} variant="h3">
-          {data.cities[0].city}
+        <Typography
+          className={classes.title}
+          variant="h3"
+        >
+          {data.cities[0].city.replace(' (All)', '')}
         </Typography>
         <Typography className={classes.subtitle} variant="subtitle1">
           {data.country}
