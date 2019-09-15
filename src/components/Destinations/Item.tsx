@@ -15,6 +15,7 @@ import WarsawPhoto from "../../assets/Warsaw.jpg";
 import { Destination } from "../../typedef";
 import CurrencyIcon from "./CurrencyIcon";
 import ThermoIcon from "./ThermoIcon";
+import tagsI18n from '../../tagsI18n';
 
 const mapIataToPhoto = {
   DEL: DelhiPhoto,
@@ -132,7 +133,11 @@ const useStyles = makeStyles({
   button: {
     marginTop: "auto",
     color: "white",
-    backgroundColor: (props: Props) => getColor(props.data.cities[0].iata)
+    backgroundColor: (props: Props) => getColor(props.data.cities[0].iata),
+    '&:hover': {
+      backgroundColor: (props: Props) => getColor(props.data.cities[0].iata),
+      opacity: 0.8,
+    }
   },
   list: {
     paddingLeft: 25,
@@ -254,7 +259,8 @@ const Item = (props: Props) => {
         </div>
         <div className={classes.row}>
           {data.cities[0].tags.map(tag => (
-            <Chip label={tag} className={classes.chip} color="inherit" />
+            // @ts-ignore
+            <Chip label={tagsI18n[tag]} className={classes.chip} color="inherit" />
           ))}
         </div>
         <ul className={classes.list}>
@@ -273,7 +279,7 @@ const Item = (props: Props) => {
           disableRipple
           onClick={redirectToFlights}
         >
-          Let's check flights
+          Let's book
         </Button>
       </div>
     ),

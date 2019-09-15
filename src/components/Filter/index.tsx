@@ -6,7 +6,6 @@ import Paper from '@material-ui/core/Paper';
 import classnames from 'classnames';
 import { RouteComponentProps } from 'react-router';
 import colors from '../../colors';
-import LogoLot from '../../assets/logo_lot.png';
 import tagsI18n from '../../tagsI18n';
 import BeachPhoto from '../../assets/beach.jpg';
 import CashPhoto from '../../assets/cash.jpg';
@@ -16,20 +15,11 @@ import SeePhoto from '../../assets/see.jpg';
 import SkyPhoto from '../../assets/sky.jpg';
 import PartyPhoto from '../../assets/party.jpg';
 import RiverPhoto from '../../assets/river.jpg';
+import Nav from '../Nav';
 
 const useStyles = makeStyles({
   filter: {
     background: 'white',
-  },
-  header: {
-    display: "flex",
-    justifyContent: "space-around",
-    alignItems: "center",
-    background: colors.baseColor
-  },
-  logo: {
-    height: "80px",
-    filter: "drop-shadow(3px 3px 3px #222)"
   },
   wrapper: {
     display: "flex",
@@ -53,12 +43,6 @@ const useStyles = makeStyles({
       width: "25vw",
       height: "25vw"
     }
-  },
-  title: {
-    textAlign: "left",
-    color: "white",
-    fontWeight: 600,
-    filter: "drop-shadow(3px 3px 3px #222)"
   },
   selected: {
     '& img': {
@@ -157,12 +141,7 @@ const Filter = ({ history }: RouteComponentProps) => {
 
   return (
     <div className={classes.filter}>
-      <header className={classes.header}>
-        <Typography variant="h5" className={classes.title}>
-          Select what you like
-        </Typography>
-        <img className={classes.logo} src={LogoLot} alt={"logo"} />
-      </header>
+      <Nav>Select what you like</Nav>
       <div className={classes.wrapper}>
         {items.map(item => (
           <Paper

@@ -73,10 +73,10 @@ export default function Choice() {
           className={classes.button}
           onClick={redirectToChooseFlightOptions}
         >
-          I know the place!
+          I know where I'm going
         </Button>
         <Button className={classes.button} onClick={redirectToFilters}>
-          I know nothing
+          I'm still not sure
         </Button>
       </div>
     </>
