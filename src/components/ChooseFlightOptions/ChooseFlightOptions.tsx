@@ -20,6 +20,7 @@ import { Destination, FetchFlightsParams, Flight } from "../../typedef";
 import logo_lot2 from "../../assets/logo_lot2.png";
 import colors from '../../colors';
 import Typography from "@material-ui/core/Typography";
+import queryString from "query-string";
 
 const useStyles = makeStyles({
   logo: {
@@ -127,14 +128,16 @@ const ChooseFlightOptions = ({
   fetchFlights,
   destinations
 }: Props) => {
+  const { iata: stringifiedString } = queryString.parse(location.search);
   const [formValues, setFormValues] = useState({
     fromDate: new Date(),
     toDate: new Date(),
     fromCity: "WAW",
-    toCity: "CDG",
+    toCity: stringifiedString || "",
     adultsCount: 1,
     cabinClass: "E"
   });
+
   const classes = useStyles();
 
   const updateValue = (name: string, value: any) => {

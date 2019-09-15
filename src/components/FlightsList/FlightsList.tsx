@@ -4,7 +4,6 @@ import { RouteComponentProps } from "react-router";
 import { Dispatch } from "redux";
 import logo_lot from "../../assets/logo_lot.png";
 import { AppState, connect } from "../../store/configureStore";
-import { Flight } from "../../typedef";
 
 const useStyles = makeStyles({
   logo: {

@@ -57,18 +57,27 @@ const useStyles = makeStyles({
 export default function Choice() {
   const classes = useStyles();
 
-  const redirect = () => {
+  const redirectToChooseFlightOptions = () => {
     myAppHistory.push(Routes.ChooseFlightOptions);
+  };
+
+  const redirectToFilters = () => {
+    myAppHistory.push(Routes.Filter);
   };
 
   return (
     <>
       <div className={classes.container}>
         <img className={classes.logo} src={logo_lot} alt={"logo"} />
-        <Button className={classes.button} onClick={redirect}>
+        <Button
+          className={classes.button}
+          onClick={redirectToChooseFlightOptions}
+        >
           I know the place!
         </Button>
-        <Button className={classes.button}>I know nothing</Button>
+        <Button className={classes.button} onClick={redirectToFilters}>
+          I know nothing
+        </Button>
       </div>
     </>
   );

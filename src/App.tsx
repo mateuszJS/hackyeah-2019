@@ -20,4 +20,12 @@ class App extends React.Component<AppProps, any> {
   }
 }
 
+const onResize = () => {
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
+onResize()
+window.addEventListener('resize', onResize);
+
 export default App;
