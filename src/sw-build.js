@@ -1,4 +1,3 @@
-// @ts-ignore
 const workboxBuild = require('workbox-build');
 // NOTE: This should be run *AFTER* all your assets are built
 const buildSW = () => {
@@ -10,7 +9,7 @@ const buildSW = () => {
     globPatterns: [
       '**\/*.{js,css,html,png}',
     ]
-  }).then(({ count, size, warnings }: { count: number, size: number, warnings: string[] }) => {
+  }).then(({ count, size, warnings }) => {
     // Optionally, log any warnings and details.
     warnings.forEach(console.warn);
     console.log(`${count} files will be precached, totaling ${size} bytes.`);
