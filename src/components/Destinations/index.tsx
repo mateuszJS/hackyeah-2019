@@ -1,41 +1,99 @@
-import queryString from 'query-string';
-import React, { useEffect } from 'react';
-import { RouteComponentProps } from 'react-router';
-import { Dispatch } from 'redux';
-import * as actions from '../../store/actions';
-import { AppState, connect } from '../../store/configureStore';
-import { Destination } from '../../typedef';
+import Typography from "@material-ui/core/Typography";
+import makeStyles from "@material-ui/styles/makeStyles";
+import classnames from "classnames";
+import queryString from "query-string";
+import { default as React, useEffect, useState } from "react";
+import { RouteComponentProps } from "react-router";
+import { Dispatch } from "redux";
+import * as actions from "../../store/actions";
+import { AppState, connect } from "../../store/configureStore";
+import { Destination } from "../../typedef";
+import Item from "./Item";
 
 interface Props extends RouteComponentProps {
-  destinations: Destination[]
-  fetchDestinations: VoidFunction,
+  destinations: Destination[];
+  fetchDestinations: VoidFunction;
 }
-const Destinations = ({ location, fetchDestinations, destinations }: Props) => {
-  const { tags: stringifiedString } = queryString.parse(location.search)
-  const tags = typeof stringifiedString === 'string'
-    ? stringifiedString.split(',')
-    : [];
+
+const useStyles = makeStyles({
+  wrapper: {
+    display: "flex",
+    flexDirection: "column",
+    padding: 20,
+    overflow: "auto",
+    maxHeight: "calc(var(--vh, 1vh) * 100)"
+  },
+  title: {
+    marginBottom: 30
+  },
+  disableScroll: {
+    overflow: "hidden"
+  }
+});
+
+const Destinations = ({
+  history,
+  location,
+  fetchDestinations,
+  destinations
+}: Props) => {
+  const classes = useStyles();
+  const [selected, setSelected] = useState<string | null>(null);
 
   useEffect(() => {
-    fetchDestinations();
-  }, [])
+    const { tags: stringifiedString, country } = queryString.parse(
+      location.search
+    );
+    // @ts-ignore
+    setSelected(country);
+    if (!destinations) {
+      const tags =
+        typeof stringifiedString === "string"
+          ? stringifiedString.split(",")
+          : [];
+      fetchDestinations();
+    }
+  }, [location.search]);
+
+  const redirectTo = (country: string | null) => {
+    const params = queryString.parse(location.search);
+    if (country) {
+      params.country = country;
+    } else {
+      params.country = undefined;
+    }
+    history.push(`/destinations?${queryString.stringify(params)}`);
+  };
+
   return (
-    <div>
-      Destinations
+    <div
+      className={classnames(classes.wrapper, {
+        [classes.disableScroll]: selected
+      })}
+    >
+      <Typography variant="h3" className={classes.title}>
+        Destinations
+      </Typography>
       {destinations === undefined && <p>LOADER!</p>}
-      {destinations && destinations.map(destination =>
-        <p key={destination.country}>{destination.country}</p>
-      )}
+      {destinations &&
+        destinations.map(destination => (
+          <Item
+            key={destination.country}
+            data={destination}
+            selected={selected === destination.country}
+            redirect={redirectTo}
+          />
+        ))}
     </div>
   );
 };
 
 const mapStateToProps = ({ reducer: { destinations } }: AppState) => ({
-  destinations,
-})
+  destinations
+});
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   fetchDestinations: () => actions.fetchDestinations(dispatch)
-})
+});
 
 export default connect({ mapStateToProps, mapDispatchToProps })(Destinations);

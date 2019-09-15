@@ -1,11 +1,14 @@
 export type Airport = {
-  city: string;
-  iata: string;
+  city: string
+  iata: string
+  tags: string[]
 };
 
 export type Destination = {
-  country: string;
-  cities: Airport[];
+  country: string
+  cities: Airport[]
+  annualTemp: string
+  currency: string
 };
 
 export type Flight = {
