@@ -1,8 +1,8 @@
 import axios from "axios";
 import { AnyAction, Dispatch } from "redux";
-import { Destination, FetchFlightsParams, Flight } from "../typedef";
-import { myAppHistory } from "./configureStore";
 import Routes from "../routes/urls";
+import { Destination, FetchFlightsParams } from "../typedef";
+import { myAppHistory } from "./configureStore";
 
 export const fetchDestinations = async (dispatch: Dispatch<AnyAction>) => {
   const response = await axios.get<{ data: Destination[] }>(
