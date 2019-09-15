@@ -1,26 +1,59 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ConnectedRouter } from "connected-react-router";
+import { History } from "history";
+import { SnackbarProvider } from "notistack";
+import { default as React, Suspense } from "react";
+import { Dispatch } from "redux";
+import * as actions from "./store/actions";
+import { AppState, connect } from "./store/configureStore";
+import "./App.css";
+import routes from "./routes";
+import { makeStyles } from "@material-ui/styles";
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface AppProps {
+  loading: boolean | undefined;
+  history: History;
+  closeSnackbar: () => void;
 }
 
-export default App;
+const useStyles = makeStyles({
+  overlay: {
+    height: "100vh",
+    background: "rgba(0,0,0,.2)"
+  }
+});
+
+const App = (props: AppProps) => {
+  const classes = useStyles();
+  const overlay = props.loading ? classes.overlay : "";
+  return (
+    <div className={overlay}>
+      <SnackbarProvider
+        maxSnack={1}
+        autoHideDuration={1500}
+        onClose={props.closeSnackbar}
+      >
+        <Suspense fallback={<div>Loading...</div>}>
+          <ConnectedRouter history={props.history}>{routes}</ConnectedRouter>
+        </Suspense>
+      </SnackbarProvider>
+    </div>
+  );
+};
+
+const onResize = () => {
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty("--vh", `${vh}px`);
+};
+
+onResize();
+window.addEventListener("resize", onResize);
+
+const mapStateToProps = ({ reducer: { loading } }: AppState) => ({
+  loading
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  closeSnackbar: () => actions.closeSnackbar({ dispatch })
+});
+
+export default connect({ mapStateToProps, mapDispatchToProps })(App);
