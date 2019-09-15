@@ -3,13 +3,15 @@ import { makeStyles } from "@material-ui/styles";
 import Button from "@material-ui/core/Button";
 import choice_background from "../../assets/choice_background.jpg";
 import logo_lot from "../../assets/logo_lot.png";
+import { myAppHistory } from "../../store/configureStore";
+import Routes from "../../routes/urls";
 
 const useStyles = makeStyles({
   logo: {
     position: "absolute",
     top: 0,
     right: "10%",
-    height: "200px",
+    height: "150px",
     filter: "drop-shadow(5px 5px 5px #222)"
   },
   container: {
@@ -24,8 +26,8 @@ const useStyles = makeStyles({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    '@media (min-width:600px)': {
-      flexDirection: "row",
+    "@media (min-width:600px)": {
+      flexDirection: "row"
     }
   },
   button: {
@@ -40,27 +42,33 @@ const useStyles = makeStyles({
     margin: "15px",
     fontSize: "14px",
     fontWeight: 600,
-    '@media (min-width:600px)': {
+    "@media (min-width:600px)": {
       height: "160px",
       width: "160px",
       margin: "40px",
       fontSize: "16px",
-      '&:hover': {
+      "&:hover": {
         background: "linear-gradient(45deg, #4e5eab 40%, #7380bf 60%)"
       }
     }
-   
   }
 });
 
 export default function Choice() {
   const classes = useStyles();
+
+  const redirect = () => {
+    myAppHistory.push(Routes.ChooseFlightOptions);
+  };
+
   return (
     <>
       <div className={classes.container}>
         <img className={classes.logo} src={logo_lot} alt={"logo"} />
-        <Button className={classes.button}>I know the place!</Button>
-        <Button className={classes.button}>I know nothing </Button>
+        <Button className={classes.button} onClick={redirect}>
+          I know the place!
+        </Button>
+        <Button className={classes.button}>I know nothing</Button>
       </div>
     </>
   );

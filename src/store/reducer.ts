@@ -1,11 +1,14 @@
-import { Action } from 'redux';
+import { Action } from "redux";
+import { Flight } from "../typedef";
 
 export type ReducerState = {
-  destinations?: string[]
+  destinations?: string[];
+  flights?: Flight[];
 };
 
 export const accountInitialState = {
   destinations: undefined,
+  flights: undefined
 };
 
 export const reducer = (
@@ -13,10 +16,15 @@ export const reducer = (
   action: Action<string> & { payload: any }
 ): ReducerState => {
   switch (action.type) {
-    case 'DESTINATIONS':
+    case "DESTINATIONS":
       return {
         ...state,
-        destinations: action.payload,
+        destinations: action.payload
+      };
+    case "FLIGHTS":
+      return {
+        ...state,
+        flights: action.payload
       };
     default:
       return state;
