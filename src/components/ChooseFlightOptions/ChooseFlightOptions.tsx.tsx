@@ -6,7 +6,8 @@ import MenuItem from "@material-ui/core/MenuItem/MenuItem";
 import Select from "@material-ui/core/Select/Select";
 import {
   KeyboardDatePicker,
-  MuiPickersUtilsProvider
+  MuiPickersUtilsProvider,
+  DatePicker
 } from "@material-ui/pickers";
 import { makeStyles } from "@material-ui/styles";
 import React, { useEffect, useState } from "react";
@@ -16,50 +17,70 @@ import logo_lot from "../../assets/logo_lot.png";
 import * as actions from "../../store/actions";
 import { AppState, connect } from "../../store/configureStore";
 import { Destination, FetchFlightsParams, Flight } from "../../typedef";
+import logo_lot2 from "../../assets/logo_lot2.png";
+import colors from '../../colors';
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles({
   logo: {
-    position: "absolute",
-    top: 0,
-    right: "10%",
-    height: "150px",
-    filter: "drop-shadow(5px 5px 5px #222)"
+    height: "80px",
+    filter: 'drop-shadow(5px 5px 5px #222)',
+  },
+  header: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    background: colors.baseColor,
+    //height: "50vh",
+    width: "100%",
+    marginBottom: '30px',
+  },
+  title: {
+    textAlign: 'left',
+    color: 'white',
+    fontWeight: 600,
+    filter: "drop-shadow(3px 3px 3px #222)"
   },
   container: {
-    position: "relative",
+    //position: "relative",
     height: "100vh",
     width: "100%",
-    backgroundColor: "rgba(232, 239, 255, .2)",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+
   },
   form: {
     display: "flex",
     flexDirection: "column",
-    width: "80%"
+    width: "80%",
+    "@media (min-width:800px)": {
+      width: "50%",
+    }
   },
   formControl: {
     "&>div": {
       margin: "15px 0",
       "&>div": {
-        padding: "10px"
+        //padding: "10px"
       }
     }
   },
   button: {
-    background: "linear-gradient(45deg, #8491c8 40%, #A7B1D7 60%)",
     border: 0,
     borderRadius: 8,
-    boxShadow: "0 3px 5px 2px rgba(78, 98, 174, .3)",
     color: "white",
     height: "50px",
-    padding: "0 30px",
-    width: "70%",
+    padding: '10px 20px',
+    width: "50vw",
     fontSize: "14px",
-    margin: "20px auto",
-    fontWeight: 600
+    margin: "30px auto",
+    fontWeight: 600,
+    background: `linear-gradient(45deg, ${colors.baseColor} 30%, #21CBF3 90%)`,
+    boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
+    "@media (min-width:600px)": {
+      width: '25vw',
+    }
   },
   country: {
     margin: "10px 20px",
@@ -219,9 +240,13 @@ const ChooseFlightOptions = ({
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <div className={classes.container}>
-        <img className={classes.logo} src={logo_lot} alt={"logo"} />
+      <header className={classes.header}>
+        <Typography variant="h5" className={classes.title}>Choose options</Typography>
+        <img className={classes.logo} src={logo_lot} alt={"logo"}/>
+      </header>
+
         <form className={classes.form} autoComplete="off">
-          <FormControl className={classes.formControl}>
+          <FormControl className={classes.formControl} variant="outlined">
             <InputLabel shrink htmlFor="fromCity">
               From
             </InputLabel>
@@ -241,7 +266,7 @@ const ChooseFlightOptions = ({
                 })}
             </Select>
           </FormControl>
-          <FormControl className={classes.formControl}>
+          <FormControl className={classes.formControl} variant="outlined">
             <InputLabel shrink htmlFor="toCity">
               To
             </InputLabel>
@@ -261,8 +286,10 @@ const ChooseFlightOptions = ({
           </FormControl>
 
           <FormControl className={classes.formControl}>
-            <KeyboardDatePicker
+            <DatePicker
               margin="normal"
+              autoOk
+              inputVariant="outlined"
               label="Departure date"
               format="MM/dd/yyyy"
               value={formValues.fromDate}
@@ -270,15 +297,17 @@ const ChooseFlightOptions = ({
             />
           </FormControl>
           <FormControl className={classes.formControl}>
-            <KeyboardDatePicker
+            <DatePicker
+              autoOk
               margin="normal"
+              inputVariant="outlined"
               label="Return date"
               format="MM/dd/yyyy"
               value={formValues.toDate}
               onChange={value => updateValue("toDate", value)}
             />
           </FormControl>
-          <FormControl className={classes.formControl}>
+          <FormControl className={classes.formControl} variant="outlined">
             <InputLabel shrink>Adults</InputLabel>
             <Select
               value={formValues.adultsCount}
@@ -294,7 +323,7 @@ const ChooseFlightOptions = ({
               })}
             </Select>
           </FormControl>
-          <FormControl className={classes.formControl}>
+          <FormControl className={classes.formControl} variant="outlined">
             <InputLabel shrink>Cabin class</InputLabel>
             <Select
               value={formValues.cabinClass}
