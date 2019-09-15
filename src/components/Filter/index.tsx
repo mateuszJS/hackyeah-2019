@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/styles';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/styles';
 import classnames from 'classnames';
+import React, { useState } from 'react';
 import { RouteComponentProps } from 'react-router';
-import colors from '../../colors';
-import queryString from 'query-string';
 import HotExemple from '../../assets/hot.jpg';
 import LogoLot from '../../assets/logo_lot.png';
+import colors from '../../colors';
 
 const useStyles = makeStyles({
   filter: {

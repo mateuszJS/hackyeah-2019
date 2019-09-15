@@ -6,7 +6,7 @@ import FiltersView from "../components/Filter";
 import Destinations from "../components/Destinations";
 import Routes from "./urls";
 import Choice from "../components/Choice/Choice";
-import ChooseFlightOptions from "../components/ChooseFlightOptions/ChooseFlightOptions.tsx";
+import ChooseFlightOptions from "../components/ChooseFlightOptions/ChooseFlightOptions";
 import FlightsList from "../components/FlightsList/FlightsList";
 
 const routes = (

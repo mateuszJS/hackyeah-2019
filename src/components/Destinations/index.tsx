@@ -1,9 +1,9 @@
+import queryString from 'query-string';
 import React, { useEffect } from 'react';
 import { RouteComponentProps } from 'react-router';
-import queryString from 'query-string';
-import { Dispatch } from 'redux'
-import { connect, AppState } from '../../store/configureStore';
+import { Dispatch } from 'redux';
 import * as actions from '../../store/actions';
+import { AppState, connect } from '../../store/configureStore';
 import { Destination } from '../../typedef';
 
 interface Props extends RouteComponentProps {

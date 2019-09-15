@@ -1,15 +1,11 @@
 import { connectRouter, routerMiddleware } from "connected-react-router";
 import { createBrowserHistory, History } from "history";
-import {
-  connect as ReduxConnect,
-  MapStateToPropsParam,
-  MapDispatchToPropsParam
-} from "react-redux";
+import { ComponentType } from "react";
+import { connect as ReduxConnect, MapDispatchToPropsParam } from "react-redux";
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import { reducer, ReducerState } from "./reducer";
-import { ComponentType } from "react";
 
 export const myAppHistory = createBrowserHistory();
 
