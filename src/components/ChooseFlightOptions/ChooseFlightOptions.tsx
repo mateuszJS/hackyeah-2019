@@ -1,5 +1,6 @@
 import DateFnsUtils from "@date-io/date-fns";
 import Button from "@material-ui/core/Button/Button";
+import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
 import FormControl from "@material-ui/core/FormControl/FormControl";
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem/MenuItem";
@@ -10,6 +11,8 @@ import {
   DatePicker
 } from "@material-ui/pickers";
 import { makeStyles } from "@material-ui/styles";
+import { useSnackbar, SnackbarProvider } from "notistack";
+import queryString from "query-string";
 import React, { useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router";
 import { Dispatch } from "redux";
@@ -97,6 +100,16 @@ const useStyles = makeStyles({
     display: "flex",
     fontStyle: "italic",
     justifyContent: "space-between"
+  },
+  buttonProgress: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    marginTop: -12,
+    marginLeft: -12
+  },
+  error: {
+    color: "red"
   }
 });
 
@@ -118,12 +131,16 @@ const cabinClasses = [
 interface Props extends RouteComponentProps {
   destinations: Destination[];
   flights: Flight[];
+  loading: boolean | undefined;
+  error: boolean | undefined;
   fetchDestinations: VoidFunction;
   fetchFlights: (params: FetchFlightsParams) => void;
 }
 
 const ChooseFlightOptions = ({
   location,
+  loading,
+  error,
   fetchDestinations,
   fetchFlights,
   destinations
@@ -240,6 +257,12 @@ const ChooseFlightOptions = ({
     fetchFlights(data);
   };
 
+  const { enqueueSnackbar } = useSnackbar();
+  const variant = "error";
+  if (error) {
+    enqueueSnackbar("API is dead 💀", { variant });
+  }
+
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <div className={classes.container}>
@@ -342,17 +365,28 @@ const ChooseFlightOptions = ({
               })}
             </Select>
           </FormControl>
-          <Button className={classes.button} onClick={() => letsGo(formValues)}>
+          <Button
+            className={classes.button}
+            disabled={loading}
+            onClick={() => letsGo(formValues)}
+          >
             Let`s go!
           </Button>
+          {loading && (
+            <CircularProgress size={24} className={classes.buttonProgress} />
+          )}
         </form>
       </div>
     </MuiPickersUtilsProvider>
   );
 };
 
-const mapStateToProps = ({ reducer: { destinations } }: AppState) => ({
-  destinations
+const mapStateToProps = ({
+  reducer: { destinations, loading, error }
+}: AppState) => ({
+  destinations,
+  loading,
+  error
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
