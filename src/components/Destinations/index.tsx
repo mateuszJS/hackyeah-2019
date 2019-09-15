@@ -109,6 +109,8 @@ const Destinations = ({
             data={destination}
             selected={selected === destination.country}
             redirect={redirectTo}
+            location={location}
+            history={history}
           />
         ))}
     </div>

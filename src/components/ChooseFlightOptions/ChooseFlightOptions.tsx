@@ -16,6 +16,7 @@ import logo_lot from "../../assets/logo_lot.png";
 import * as actions from "../../store/actions";
 import { AppState, connect } from "../../store/configureStore";
 import { Destination, FetchFlightsParams, Flight } from "../../typedef";
+import queryString from "query-string";
 
 const useStyles = makeStyles({
   logo: {
@@ -106,14 +107,16 @@ const ChooseFlightOptions = ({
   fetchFlights,
   destinations
 }: Props) => {
+  const { iata: stringifiedString } = queryString.parse(location.search);
   const [formValues, setFormValues] = useState({
     fromDate: new Date(),
     toDate: new Date(),
     fromCity: "WAW",
-    toCity: "CDG",
+    toCity: stringifiedString || "",
     adultsCount: 1,
     cabinClass: "E"
   });
+
   const classes = useStyles();
 
   const updateValue = (name: string, value: any) => {
