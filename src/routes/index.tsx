@@ -7,6 +7,7 @@ import Destinations from "../components/Destinations";
 import Routes from "./urls";
 import Choice from "../components/Choice/Choice";
 import ChooseFlightOptions from "../components/ChooseFlightOptions/ChooseFlightOptions.tsx";
+import FlightsList from "../components/FlightsList/FlightsList";
 
 const routes = (
   <Switch>
@@ -14,6 +15,7 @@ const routes = (
     <Route path={Routes.Filter} component={FiltersView} />
     <Route path={Routes.Destinations} component={Destinations} />
     <Route path={Routes.ChooseFlightOptions} component={ChooseFlightOptions} />
+    <Route path={Routes.Flights} component={FlightsList} />
     <Route path={Routes.All} component={NotFound} />
   </Switch>
 );

@@ -11,11 +11,11 @@ import {
 import { makeStyles } from "@material-ui/styles";
 import React, { useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router";
-import logo_lot from "../../assets/logo_lot.png";
-import { AppState, connect } from "../../store/configureStore";
-import { Destination } from "../../typedef";
 import { Dispatch } from "redux";
+import logo_lot from "../../assets/logo_lot.png";
 import * as actions from "../../store/actions";
+import { AppState, connect } from "../../store/configureStore";
+import { Destination, FetchFlightsParams, Flight } from "../../typedef";
 
 const useStyles = makeStyles({
   logo: {
@@ -81,35 +81,38 @@ const useStyles = makeStyles({
 const cabinClasses = [
   {
     label: "Economy",
-    value: "1"
+    value: "E"
   },
   {
     label: "Premium",
-    value: "2"
+    value: "B"
   },
   {
     label: "Business",
-    value: "3"
+    value: "F"
   }
 ];
 
 interface Props extends RouteComponentProps {
   destinations: Destination[];
+  flights: Flight[];
   fetchDestinations: VoidFunction;
+  fetchFlights: (params: FetchFlightsParams) => void;
 }
 
 const ChooseFlightOptions = ({
   location,
   fetchDestinations,
+  fetchFlights,
   destinations
 }: Props) => {
   const [formValues, setFormValues] = useState({
     fromDate: new Date(),
-    toDate: new Date(new Date().setDate(new Date().getDate() + 7)),
-    fromCity: "",
-    toCity: "",
+    toDate: new Date(),
+    fromCity: "WAW",
+    toCity: "CDG",
     adultsCount: 1,
-    cabinClass: 1
+    cabinClass: "E"
   });
   const classes = useStyles();
 
@@ -187,6 +190,30 @@ const ChooseFlightOptions = ({
     }
 
     return itemek;
+  };
+
+  const letsGo = (formValues: any) => {
+    let from =
+      formValues.fromDate.getDate().toString() +
+      ("0" + (formValues.fromDate.getMonth() + 1)).slice(-2).toString() +
+      formValues.fromDate.getFullYear().toString();
+    let to =
+      formValues.toDate.getDate().toString() +
+      ("0" + (formValues.fromDate.getMonth() + 1)).slice(-2).toString() +
+      formValues.toDate.getFullYear().toString();
+    let data: FetchFlightsParams = {
+      params: {
+        adt: formValues.adultsCount,
+        cabinClass: formValues.cabinClass,
+        market: "PL",
+        departureDate: [from.toString()],
+        returnDate: to.toString(),
+        origin: [formValues.fromCity],
+        destination: [formValues.toCity],
+        tripType: "R"
+      }
+    };
+    fetchFlights(data);
   };
 
   return (
@@ -270,7 +297,7 @@ const ChooseFlightOptions = ({
           <FormControl className={classes.formControl}>
             <InputLabel shrink>Cabin class</InputLabel>
             <Select
-              value={formValues.adultsCount}
+              value={formValues.cabinClass}
               onChange={event => updateValue("cabinClass", event.target.value)}
               displayEmpty
             >
@@ -283,7 +310,7 @@ const ChooseFlightOptions = ({
               })}
             </Select>
           </FormControl>
-          <Button className={classes.button} onClick={() => {}}>
+          <Button className={classes.button} onClick={() => letsGo(formValues)}>
             Let`s go!
           </Button>
         </form>
@@ -297,7 +324,9 @@ const mapStateToProps = ({ reducer: { destinations } }: AppState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  fetchDestinations: () => actions.fetchDestinations(dispatch)
+  fetchDestinations: () => actions.fetchDestinations(dispatch),
+  fetchFlights: (params: FetchFlightsParams) =>
+    actions.fetchFlights({ dispatch, params })
 });
 
 export default connect({ mapStateToProps, mapDispatchToProps })(

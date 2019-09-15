@@ -5,5 +5,6 @@ export default class Routes {
   static ChooseFlightOptions = "/options";
   static NotFound = "/notfound";
   static Filter = '/filters'
+  static Flights = '/flights'
   static Destinations = '/destinations'
 }
