@@ -2,22 +2,13 @@ import { makeStyles } from "@material-ui/styles";
 import React from "react";
 import { RouteComponentProps } from "react-router";
 import { Dispatch } from "redux";
-import logo_lot from "../../assets/logo_lot.png";
+import Nav from '../Nav';
 import { AppState, connect } from "../../store/configureStore";
 
 const useStyles = makeStyles({
-  logo: {
-    position: "absolute",
-    top: 0,
-    right: "10%",
-    height: "150px",
-    filter: "drop-shadow(5px 5px 5px #222)"
-  },
   container: {
     position: "relative",
-    height: "100vh",
     width: "100%",
-    backgroundColor: "rgba(232, 239, 255, .2)",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -25,7 +16,6 @@ const useStyles = makeStyles({
   },
   flightsWrapper: {
     width: "90%",
-    marginTop: "250px",
     height: "100%"
   },
   flightWrapper: {
@@ -35,7 +25,7 @@ const useStyles = makeStyles({
   },
   flightDetails: {
     padding: "15px",
-    borderRadius: "30px",
+    borderRadius: "10px",
     margin: "20px 0 0 0",
     boxShadow: "1px 1px 15px 0px rgba(0,0,0,0.3)",
     "&>*": {
@@ -114,7 +104,7 @@ const FlightsList = ({ flights }: Props) => {
 
   return (
     <div className={classes.container}>
-      <img className={classes.logo} src={logo_lot} alt={"logo"} />
+      <Nav>Available Flights</Nav>
       <div className={classes.flightsWrapper}>
         {flights.map((x: any, i: number) => {
           return (

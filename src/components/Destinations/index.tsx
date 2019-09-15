@@ -9,6 +9,7 @@ import * as actions from "../../store/actions";
 import { AppState, connect } from "../../store/configureStore";
 import { Destination } from "../../typedef";
 import Item from "./Item";
+import Nav from '../Nav';
 
 interface Props extends RouteComponentProps {
   destinations: Destination[];
@@ -22,9 +23,6 @@ const useStyles = makeStyles({
     padding: 20,
     overflow: "auto",
     maxHeight: "calc(var(--vh, 1vh) * 100)"
-  },
-  title: {
-    marginBottom: 30
   },
   disableScroll: {
     overflow: "hidden"
@@ -93,27 +91,27 @@ const Destinations = ({
   };
 
   return (
-    <div
-      className={classnames(classes.wrapper, {
-        [classes.disableScroll]: selected
-      })}
-    >
-      <Typography variant="h3" className={classes.title}>
-        Destinations
-      </Typography>
-      {destinationsList === undefined && <p>LOADER!</p>}
-      {destinationsList &&
-        destinationsList.map((destination, index) => (
-          <Item
-            key={`${destination.country}_${index}`}
-            data={destination}
-            selected={selected === destination.country}
-            redirect={redirectTo}
-            location={location}
-            history={history}
-          />
-        ))}
-    </div>
+    <>
+      <Nav>Destinations</Nav>
+      <div
+        className={classnames(classes.wrapper, {
+          [classes.disableScroll]: selected
+        })}
+      >
+        {destinationsList === undefined && <p>LOADER!</p>}
+        {destinationsList &&
+          destinationsList.map((destination, index) => (
+            <Item
+              key={`${destination.country}_${index}`}
+              data={destination}
+              selected={selected === destination.country}
+              redirect={redirectTo}
+              location={location}
+              history={history}
+            />
+          ))}
+      </div>
+    </>
   );
 };
 

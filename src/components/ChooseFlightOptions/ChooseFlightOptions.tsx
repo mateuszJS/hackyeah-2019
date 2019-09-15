@@ -18,6 +18,7 @@ import colors from "../../colors";
 import * as actions from "../../store/actions";
 import { AppState, connect } from "../../store/configureStore";
 import { Destination, FetchFlightsParams, Flight } from "../../typedef";
+import Nav from '../Nav';
 
 const useStyles = makeStyles({
   logo: {
@@ -157,7 +158,7 @@ const ChooseFlightOptions = ({
     });
   };
 
-  const flatten = function(
+  const flatten = function (
     country: string | null,
     arr: any[],
     result: any[] = []
@@ -261,13 +262,7 @@ const ChooseFlightOptions = ({
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <div className={classes.container}>
-        <header className={classes.header}>
-          <Typography variant="h5" className={classes.title}>
-            Choose options
-          </Typography>
-          <img className={classes.logo} src={logo_lot} alt={"logo"} />
-        </header>
-
+        <Nav>Choose options</Nav>
         <form className={classes.form} autoComplete="off">
           <FormControl className={classes.formControl} variant="outlined">
             <InputLabel shrink htmlFor="fromCity">
