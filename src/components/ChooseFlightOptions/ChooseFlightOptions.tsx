@@ -14,7 +14,7 @@ import React, { useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router";
 import { Dispatch } from "redux";
 import logo_lot from "../../assets/logo_lot.png";
-import colors from '../../colors';
+import colors from "../../colors";
 import * as actions from "../../store/actions";
 import { AppState, connect } from "../../store/configureStore";
 import { Destination, FetchFlightsParams, Flight } from "../../typedef";
@@ -22,20 +22,20 @@ import { Destination, FetchFlightsParams, Flight } from "../../typedef";
 const useStyles = makeStyles({
   logo: {
     height: "80px",
-    filter: 'drop-shadow(5px 5px 5px #222)',
+    filter: "drop-shadow(5px 5px 5px #222)"
   },
   header: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    alignItems: 'center',
+    display: "flex",
+    justifyContent: "space-around",
+    alignItems: "center",
     background: colors.baseColor,
     //height: "50vh",
     width: "100%",
-    marginBottom: '30px',
+    marginBottom: "30px"
   },
   title: {
-    textAlign: 'left',
-    color: 'white',
+    textAlign: "left",
+    color: "white",
     fontWeight: 600,
     filter: "drop-shadow(3px 3px 3px #222)"
   },
@@ -45,15 +45,14 @@ const useStyles = makeStyles({
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
-
+    alignItems: "center"
   },
   form: {
     display: "flex",
     flexDirection: "column",
     width: "80%",
     "@media (min-width:800px)": {
-      width: "50%",
+      width: "50%"
     }
   },
   formControl: {
@@ -69,15 +68,15 @@ const useStyles = makeStyles({
     borderRadius: 8,
     color: "white",
     height: "50px",
-    padding: '10px 20px',
+    padding: "10px 20px",
     width: "50vw",
     fontSize: "14px",
     margin: "30px auto",
     fontWeight: 600,
     background: `linear-gradient(45deg, ${colors.baseColor} 30%, #21CBF3 90%)`,
-    boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
+    boxShadow: "0 3px 5px 2px rgba(33, 203, 243, .3)",
     "@media (min-width:600px)": {
-      width: '25vw',
+      width: "25vw"
     }
   },
   country: {
@@ -228,27 +227,29 @@ const ChooseFlightOptions = ({
   };
 
   const letsGo = (formValues: any) => {
-    let from =
-      formValues.fromDate.getDate().toString() +
-      ("0" + (formValues.fromDate.getMonth() + 1)).slice(-2).toString() +
-      formValues.fromDate.getFullYear().toString();
-    let to =
-      formValues.toDate.getDate().toString() +
-      ("0" + (formValues.fromDate.getMonth() + 1)).slice(-2).toString() +
-      formValues.toDate.getFullYear().toString();
-    let data: FetchFlightsParams = {
-      params: {
-        adt: formValues.adultsCount,
-        cabinClass: formValues.cabinClass,
-        market: "PL",
-        departureDate: [from.toString()],
-        returnDate: to.toString(),
-        origin: [formValues.fromCity],
-        destination: [formValues.toCity],
-        tripType: "R"
-      }
-    };
-    fetchFlights(data);
+    if (formValues.fromCity && formValues.toCity) {
+      let from =
+        formValues.fromDate.getDate().toString() +
+        ("0" + (formValues.fromDate.getMonth() + 1)).slice(-2).toString() +
+        formValues.fromDate.getFullYear().toString();
+      let to =
+        formValues.toDate.getDate().toString() +
+        ("0" + (formValues.fromDate.getMonth() + 1)).slice(-2).toString() +
+        formValues.toDate.getFullYear().toString();
+      let data: FetchFlightsParams = {
+        params: {
+          adt: formValues.adultsCount,
+          cabinClass: formValues.cabinClass,
+          market: "PL",
+          departureDate: [from.toString()],
+          returnDate: to.toString(),
+          origin: [formValues.fromCity],
+          destination: [formValues.toCity],
+          tripType: "R"
+        }
+      };
+      fetchFlights(data);
+    }
   };
 
   const { enqueueSnackbar } = useSnackbar();
@@ -260,10 +261,12 @@ const ChooseFlightOptions = ({
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <div className={classes.container}>
-      <header className={classes.header}>
-        <Typography variant="h5" className={classes.title}>Choose options</Typography>
-        <img className={classes.logo} src={logo_lot} alt={"logo"}/>
-      </header>
+        <header className={classes.header}>
+          <Typography variant="h5" className={classes.title}>
+            Choose options
+          </Typography>
+          <img className={classes.logo} src={logo_lot} alt={"logo"} />
+        </header>
 
         <form className={classes.form} autoComplete="off">
           <FormControl className={classes.formControl} variant="outlined">
@@ -275,6 +278,7 @@ const ChooseFlightOptions = ({
                 name: "fromCity",
                 id: "fromCity"
               }}
+              error={!formValues.fromCity}
               value={formValues.fromCity}
               onChange={event => {
                 updateValue("fromCity", event.target.value);
@@ -295,6 +299,7 @@ const ChooseFlightOptions = ({
                 name: "toCity",
                 id: "toCity"
               }}
+              error={!formValues.toCity}
               value={formValues.toCity}
               onChange={event => updateValue("toCity", event.target.value)}
             >
@@ -367,7 +372,7 @@ const ChooseFlightOptions = ({
             Let`s go!
           </Button>
           {loading && (
-            <CircularProgress size={24} className={classes.buttonProgress} />
+            <CircularProgress size={80} className={classes.buttonProgress} />
           )}
         </form>
       </div>
